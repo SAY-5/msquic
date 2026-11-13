@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/microsoft/msquic/blob/main/docs/XDP.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/SAY-5/msquic/blob/main/docs/XDP.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -89,6 +89,22 @@
 
 <p>To avoid confusion, &quot;XDP&quot; refers to <a href="https://github.com/microsoft/xdp-for-windows">XDP-for-windows</a>.
 MsQuic does not support Linux XDP as a datapath.</p>
+<h2 id="installing-xdp">Installing XDP</h2>
+<p>MsQuic consumes XDP as a binary dependency for its tests; it does not build XDP
+from source. The available packages — and the exact version pinned for each — are
+defined in <a href="../scripts/xdp.json"><code>scripts/xdp.json</code></a>, which is the single source
+of truth. Each entry is keyed by a version moniker (e.g. <code>1.1</code>, <code>prerelease</code>).</p>
+<p>To install XDP for testing, use <code>prepare-machine.ps1</code>, which downloads the
+runtime NuGet package, extracts it, and installs the driver via the package's
+own <code>xdp-setup.ps1</code>:</p>
+<pre><code class="lang-powershell"># Install the official (production-signed) XDP release.
+./scripts/prepare-machine.ps1 -ForTest -UseXdp xdp-v1.4
+
+# Install a test-signed prerelease XDP package (requires test signing enabled).
+./scripts/prepare-machine.ps1 -ForTest -UseXdp xdp-prerelease
+</code></pre>
+<p><code>-UseXdp</code> takes the version moniker to install (any key from <code>xdp.json</code>); omit it
+to skip XDP entirely.</p>
 <h2 id="what-is-xdp">What is XDP</h2>
 <p>XDP enables received packets to completely bypass the OS networking stack.</p>
 <p>Applications can subscribe to XDP ring buffers to post packets to send,
@@ -202,11 +218,64 @@ BIND --&gt; CONN3
 BIND --&gt; LIST1
 BIND --&gt; LIST2
 </code></pre>
+<h2 id="using-xdp-maps">Using XDP maps</h2>
+<p>The XDP maps feature is introduced in XDP v1.4 to de-couple AF_XDP socket
+users from privileged XDP rule setters.</p>
+<p>Typically, MsQuic both creates AF_XDP sockets and configures XDP rules. The process running MsQuic must have the permission to do both.</p>
+<p>Starting version v2.6, MsQuic can use XDP maps instead of configuring XDP rules.</p>
+<p>This allows applications wishing to harden their security posture to configure XDP rules in a trusted, more privileged process while the less trusted process running MsQuic only needs the permission to use AF_XDP sockets.</p>
+<h3 id="api">API</h3>
+<p>Using XDP maps is configured via a global <code>SetParam</code> call using the
+<code>QUIC_PARAM_GLOBAL_XDP_MAP_CONFIG</code> parameter.
+It must be set before the first first registration is opened.
+Find it in the <a href="Settings.html#global-parameters">Global Parameters</a> table.</p>
+<h3 id="usage-example">Usage example</h3>
+<p>The code below is a TL;DR outline of XDP map usage in MsQuic.
+For a detailed comprehensive example, see <a href="https://github.com/microsoft/msquic/tree/main/src/tools/xdpmap">this sample.</a></p>
+<pre><code class="lang-c">//
+// Rule and map producer (in a trusted process)
+//
+
+HANDLE XskMap;
+if (FAILED(XdpMapCreate(&amp;XskMap, XDP_MAP_TYPE_XSKMAP))) { exit(-1) };
+XDP_RULE Rule = {
+    .Match = XDP_MATCH_UDP_DST,
+    .Pattern.Port = htons(ServerPort),
+    .Action = XDP_PROGRAM_ACTION_REDIRECT,
+    .Redirect.TargetType = XDP_REDIRECT_TARGET_TYPE_XSKMAP_BY_QUEUEID,
+    .Redirect.Target = XskMap,
+};
+XdpCreateProgram(IfIndex, &amp;RxHook, QueueId, 0, &amp;Rule, 1, &amp;Program);
+
+DuplicateHandleAndShareWithConsumer(XskMap);
+// MsQuic AF_XDP socket consumer
+//
+
+QUIC_XDP_MAP_HANDLE XskMap = GetMapHandleFromSomewhere();
+
+MsQuicOpenVersion(QUIC_API_VERSION, &amp;MsQuic);
+QUIC_XDP_MAP_CONFIG MapConfig = {
+    .InterfaceIndex = IfIndex,
+    .MapHandle = XskMap,
+};
+MsQuic-&gt;SetParam(
+    NULL,
+    QUIC_PARAM_GLOBAL_XDP_MAP_CONFIG,
+    sizeof(MapConfig),
+    &amp;MapConfig);
+
+//
+// Now open registrations / listeners / connections as normal.
+// MsQuic will not set rules, and instead associate XSKs with the given map
+// handles and expect RX traffic to arrive via the maps.
+//
+MsQuic-&gt;RegistrationOpen(&amp;RegConfig, &amp;Registration);
+</code></pre>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/microsoft/msquic/blob/main/docs/XDP.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SAY-5/msquic/blob/main/docs/XDP.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

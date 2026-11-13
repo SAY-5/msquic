@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/microsoft/msquic/blob/main/docs/Settings.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/SAY-5/msquic/blob/main/docs/Settings.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -629,6 +629,12 @@ Generally MsQuic already choses the best / most correct default values for all s
 <td>Set-Only</td>
 <td>Configure the stateless retry token secret, key algorithm, and key rotation interval. The secret length <em>must</em> match the AEAD algorithm key length.</td>
 </tr>
+<tr>
+<td><code>QUIC_PARAM_GLOBAL_XDP_MAP_CONFIG</code><br> 14 (preview)</td>
+<td>QUIC_XDP_MAP_CONFIG[]</td>
+<td>Both</td>
+<td>Configures XDP maps per interface. If using maps, this parameter must be set prior to opening any registration. See <a href="XDP.html#api-quic_param_global_xdp_map_config">MsQuic over XDP</a>.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="registration-parameters">Registration Parameters</h2>
@@ -1033,7 +1039,7 @@ Generally MsQuic already choses the best / most correct default values for all s
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/microsoft/msquic/blob/main/docs/Settings.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SAY-5/msquic/blob/main/docs/Settings.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

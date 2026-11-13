@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/microsoft/msquic/blob/main/docs/BUILD.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/SAY-5/msquic/blob/main/docs/BUILD.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -193,6 +193,10 @@ sudo dpkg -i libssl1.0.0_1.0.2g-1ubuntu4.18_amd64.deb
 <p><code>-Static</code> Compiles msquic as a monolithic statically linkable library.
 Supported only by Windows currently.</p>
 <p><code>-Tls &lt;schannel/openssl&gt;</code> Allows for building with different TLS providers. The default is platform dependent (Windows = schannel, Linux = openssl).</p>
+<p><code>-UseExternalOpenSSL</code> Links against an external/system OpenSSL (<strong>3.5.0 or newer</strong>) instead of building OpenSSL from the submodules. Only valid together with <code>-Tls openssl</code>. By default both <code>libssl</code> and <code>libcrypto</code> are dynamically linked from the system, so neither the <code>openssl</code> nor <code>quictls</code> submodule is required. If <code>-Static</code> is also specified, the external OpenSSL is linked statically instead (when the corresponding static libraries are available). If the system OpenSSL is older than 3.5.0 the build fails during CMake configuration with an &quot;unsuitable version&quot; error. When OpenSSL is installed outside the default system locations, add <code>-OpenSSLRootDir &lt;path&gt;</code> to point at it. For example, on a distro that ships OpenSSL 3.5+ (e.g. Ubuntu 26.04):</p>
+<pre><code class="lang-PowerShell">./scripts/build.ps1 -Tls openssl -UseExternalOpenSSL
+</code></pre>
+<p>For finer-grained control (for example when the OpenSSL headers and libraries live in separate directories), invoke CMake directly with <code>-DQUIC_USE_EXTERNAL_OPENSSL=on</code> plus <code>-DQUIC_OPENSSL_INCLUDE_DIR=&lt;path&gt;</code> and <code>-DQUIC_OPENSSL_LIB_DIR=&lt;path&gt;</code>. The <code>build.ps1</code> helper intentionally exposes only the common <code>-OpenSSLRootDir</code> case.</p>
 <p><code>-Clean</code> Forces a clean build of everything.</p>
 <p>For more info, take a look at the <a href="../scripts/build.ps1">build.ps1</a> script.</p>
 <h2 id="build-output">Build Output</h2>
@@ -236,10 +240,10 @@ sudo dnf install libatomic
 </code></pre>
 <h2 id="generating-build-files">Generating Build Files</h2>
 <h3 id="windows">Windows</h3>
-<p>Ensure the corresponding &quot;MSVC v142 - VS 2019 (or 2022) C++ (<em>Arch</em>) build tools&quot; are installed for the target arch, e.g. selecting &quot;Desktop development with C++&quot; only includes x64/x86 but not ARM64 by default.</p>
-<p>VS 2019</p>
+<p>Ensure the corresponding &quot;MSVC v142 - VS 2026 (or 2022) C++ (<em>Arch</em>) build tools&quot; are installed for the target arch, e.g. selecting &quot;Desktop development with C++&quot; only includes x64/x86 but not ARM64 by default.
+VS 2026</p>
 <pre><code>mkdir build &amp;&amp; cd build
-cmake -G 'Visual Studio 16 2019' -A x64 ..
+cmake -G 'Visual Studio 18 2026' -A x64 ..
 </code></pre>
 <p>VS 2022</p>
 <pre><code>mkdir build &amp;&amp; cd build
@@ -283,7 +287,7 @@ cd vcpkg
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/microsoft/msquic/blob/main/docs/BUILD.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SAY-5/msquic/blob/main/docs/BUILD.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

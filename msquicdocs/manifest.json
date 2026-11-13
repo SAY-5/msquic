@@ -1,4 +1,5 @@
 {
+  "docfx_version": "2.81.0+ba844df625370a6bd7c1ecab0d0ec4d1d9128ac4",
   "source_base_path": "/home/runner/work/msquic/msquic",
   "xrefmap": "xrefmap.yml",
   "files": [
@@ -62,30 +63,10 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "docs/CredScan.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/CredScan.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "docs/Deployment.md",
       "output": {
         ".html": {
           "relative_path": "docs/Deployment.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/Development.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/Development.html"
         }
       },
       "version": ""
@@ -142,6 +123,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/OpenSSLSymbolPrefix.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/OpenSSLSymbolPrefix.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/PGO.md",
       "output": {
         ".html": {
@@ -176,16 +167,6 @@
       "output": {
         ".html": {
           "relative_path": "docs/QTIP.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/ReceiveBuffer.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/ReceiveBuffer.html"
         }
       },
       "version": ""
@@ -236,16 +217,6 @@
       "output": {
         ".html": {
           "relative_path": "docs/TEST.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/TLS.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/TLS.html"
         }
       },
       "version": ""
@@ -352,6 +323,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/api/ConnectionExportKeyingMaterial.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/ConnectionExportKeyingMaterial.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/api/ConnectionOpen.md",
       "output": {
         ".html": {
@@ -436,6 +417,36 @@
       "output": {
         ".html": {
           "relative_path": "docs/api/DatagramSend.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/ExecutionCreate.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/ExecutionCreate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/ExecutionDelete.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/ExecutionDelete.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/ExecutionPoll.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/ExecutionPoll.html"
         }
       },
       "version": ""
@@ -586,6 +597,16 @@
       "output": {
         ".html": {
           "relative_path": "docs/api/QUIC_HANDSHAKE_INFO.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/QUIC_KEYING_MATERIAL_CONFIG.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/QUIC_KEYING_MATERIAL_CONFIG.html"
         }
       },
       "version": ""
@@ -834,11 +855,74 @@
       "type": "Toc",
       "source_relative_path": "docs/api/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "docs/api/toc.html"
-        },
         ".json": {
           "relative_path": "docs/api/toc.json"
+        },
+        ".html": {
+          "relative_path": "docs/api/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/contrib/CredScan.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/contrib/CredScan.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/contrib/Development.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/contrib/Development.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/contrib/ReceiveBuffer.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/contrib/ReceiveBuffer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/contrib/ReleaseGuide.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/contrib/ReleaseGuide.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/contrib/TLS.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/contrib/TLS.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/contrib/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "docs/contrib/toc.json"
+        },
+        ".html": {
+          "relative_path": "docs/contrib/toc.html"
         }
       },
       "version": ""
@@ -857,11 +941,11 @@
       "type": "Toc",
       "source_relative_path": "docs/experimental/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "docs/experimental/toc.html"
-        },
         ".json": {
           "relative_path": "docs/experimental/toc.json"
+        },
+        ".html": {
+          "relative_path": "docs/experimental/toc.html"
         }
       },
       "version": ""
@@ -1060,11 +1144,11 @@
       "type": "Toc",
       "source_relative_path": "docs/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "docs/toc.html"
-        },
         ".json": {
           "relative_path": "docs/toc.json"
+        },
+        ".html": {
+          "relative_path": "docs/toc.html"
         }
       },
       "version": ""
@@ -1173,11 +1257,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "toc.html"
-        },
         ".json": {
           "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
         }
       },
       "version": ""
